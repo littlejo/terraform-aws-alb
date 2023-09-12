@@ -58,11 +58,9 @@ resource "aws_lb" "this" {
 
 module "rules" {
   source = "./modules/rules"
-  for_each = var.rules
 
-  target_groups     = each.value.target_groups
-  listeners         = each.value.listeners
+  rules = var.rules
+
   vpc_id            = var.vpc_id
   load_balancer_arn = aws_lb.this.arn
 }
-
