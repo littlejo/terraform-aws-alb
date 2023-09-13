@@ -29,15 +29,21 @@ resource "aws_lb_listener_rule" "this" {
     target_group_arn = aws_lb_target_group.this[each.value.target_group].arn
   }
 
-  condition {
-    path_pattern {
-      values = each.value.path_patterns
+  dynamic "condition" {
+    for_each = each.value.path_patterns == null ? [] : [0]
+    content {
+      path_pattern {
+        values = each.value.path_patterns
+      }
     }
   }
 
-  condition {
-    host_header {
-      values = each.value.hosts
+  dynamic "condition" {
+    for_each = each.value.hosts == null ? [] : [0]
+    content {
+      host_header {
+        values = each.value.hosts
+      }
     }
   }
 }
