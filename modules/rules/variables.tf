@@ -18,9 +18,10 @@ variable "rules" {
       })
     })
     actions = map(object({
-      priority     = optional(string)
-      target_group = string
-      hosts        = list(string)
+      priority      = optional(string)
+      target_group  = string
+      hosts         = optional(list(string))
+      path_patterns = optional(list(string))
       })
     )
     target_groups = map(

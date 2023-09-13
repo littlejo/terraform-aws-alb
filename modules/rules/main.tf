@@ -30,6 +30,12 @@ resource "aws_lb_listener_rule" "this" {
   }
 
   condition {
+    path_pattern {
+      values = each.value.path_patterns
+    }
+  }
+
+  condition {
     host_header {
       values = each.value.hosts
     }
