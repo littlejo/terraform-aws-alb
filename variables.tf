@@ -164,9 +164,12 @@ variable "rules" {
       ssl_policy      = optional(string)
       alpn_policy     = optional(string)
       tags            = optional(map(string))
-      default_action = object({
-        target_group = string
-      })
+      default_action = optional(object({
+        type         = optional(string, "fixed-response")
+        content_type = optional(string, "text/plain")
+        message_body = optional(string, "Forbidden")
+        status_code  = optional(string, "403")
+      }), {})
     })
     actions = map(object({
       priority      = optional(string)

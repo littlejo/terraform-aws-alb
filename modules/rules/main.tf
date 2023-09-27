@@ -8,8 +8,13 @@ resource "aws_lb_listener" "this" {
   alpn_policy     = var.rules.listener.alpn_policy
 
   default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.this[var.rules.listener.default_action.target_group].arn
+    type = var.rules.listener.default_action.type
+
+    fixed_response {
+      content_type = var.rules.listener.default_action.content_type
+      message_body = var.rules.listener.default_action.message_body
+      status_code  = var.rules.listener.default_action.status_code
+    }
   }
 
   tags = merge(

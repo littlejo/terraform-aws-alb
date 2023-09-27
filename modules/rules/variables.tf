@@ -14,7 +14,10 @@ variable "rules" {
       alpn_policy     = optional(string)
       tags            = optional(map(string))
       default_action = object({
-        target_group = string
+        type         = optional(string, "fixed-response")
+        content_type = optional(string, "text/plain")
+        message_body = optional(string, "Forbidden")
+        status_code  = optional(string, "403")
       })
     })
     actions = map(object({
